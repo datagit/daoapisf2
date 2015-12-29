@@ -4,7 +4,7 @@
 parameters:
     database_host:     127.0.0.1
     database_port:     ~
-    database_name:     symfony
+    database_name:     daosf2_db
     database_user:     root
     database_password: ~
     # You should uncomment this if you want use pdo_sqlite
@@ -17,11 +17,17 @@ parameters:
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
+    # admin web root
+    web_root: http://localhost/dao/daosf2/web
 
-    api_caller.options:
-        timeout: 10
-        ssl_verifypeer: false
-        useragent: 'LeaseWeb API Caller'
-        followlocation: true
-        sslversion: 3
-        fresh_connect: false
+    miss_key1: anc3
+    miss_key2:
+      abc1: 12121
+      abc2: 3232
+    miss_key3: ['twig.extension.foo', 'twig.extension.bar']
+    miss_key4:
+      - [10.100.0.36:11211]
+    miss_key5:
+      en_SG:
+        - {'Link text 1': 'http://www.hungrygowhere.com'}
+        - {'Link text 2': 'http://www.hungrygowhere.com'}
