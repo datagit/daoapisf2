@@ -15,4 +15,4 @@ parameters:
     miss_key3: [twig.extension.foo, twig.extension.bar]
     miss_key4: [['10.100.0.36:11211']]
     miss_key5: { en_SG: [{ 'Link text 1': 'http://www.hungrygowhere.com' }, { 'Link text 2': 'http://www.hungrygowhere.com' }] }
-    assets_version: 1452221953
+    assets_version: 1452225749
