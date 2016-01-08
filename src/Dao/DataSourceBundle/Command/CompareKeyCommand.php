@@ -15,6 +15,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Yaml\Parser;
+use Symfony\Component\Yaml\Yaml;
 
 class CompareKeyCommand extends ContainerAwareCommand
 {
@@ -60,6 +61,17 @@ class CompareKeyCommand extends ContainerAwareCommand
                     $inValidEnvironment[] = $e;
                     $isMiss = true;
                 }
+            }
+        }
+
+        //modified value in parameter
+        if(! $isMiss) {
+            foreach($compareWith as $e) {
+                $NewEnvValue = Yaml::parse(file_get_contents($configPath . '/' . $e));
+                $NewEnvValue['parameters']['assets_version'] = time();
+                $str = Yaml::dump($NewEnvValue);
+                //save to modify
+                file_put_contents($configPath . '/' . $e, $str);
             }
         }
 
