@@ -40,6 +40,7 @@ class DefaultController extends FOSRestController {
 
         $entities = $em->getRepository('DaoDataSourceBundle:Post')->findAll();
 
+
         //throw new HttpException(400, "New comment is not valid.");
 
         $statusCode = 200;

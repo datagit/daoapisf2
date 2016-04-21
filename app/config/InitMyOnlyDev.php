@@ -19,16 +19,16 @@ class InitMyOnlyDev extends ContainerAwareCommand
 
     public function checkKey() {
         //modified value in parameter
-        $configPath = dirname(getcwd()) . '/app/config';
+        $configPath = getcwd() . '/app/config/';
         $origin = 'parameters.yml';
-        $originValue = Yaml::parse(file_get_contents($configPath . '/' . $origin));
+        $originValue = Yaml::parse(file_get_contents($configPath . $origin));
 
         //compare all keys
         $inValidEnvironment = array();
         $isMiss = false;
         $missKeys = array();
         foreach(self::$PARAMETERS_FILE_NAME as $e) {
-            $envValue = Yaml::parse(file_get_contents($configPath . '/' . $e));
+            $envValue = Yaml::parse(file_get_contents($configPath . $e));
             $missKeys = array_keys(array_diff_key($originValue['parameters'], $envValue['parameters']));
             if(! empty($missKeys)) {
                 $inValidEnvironment[] = $e;
@@ -40,18 +40,17 @@ class InitMyOnlyDev extends ContainerAwareCommand
             print_r( nl2br("Missed keys are:\n" . implode("\n", $missKeys)
                 . "\nEnvironments are missed: ". implode(', ', $inValidEnvironment)
                 . "\n=>FAILED"));
-            die;
+            return 0;
         }
         //sort
         foreach(self::$PARAMETERS_FILE_NAME as $e) {
-            $NewEnvValue = Yaml::parse(file_get_contents($configPath . '/' . $e));
+            $NewEnvValue = Yaml::parse(file_get_contents($configPath . $e));
             $NewEnvValue['parameters']['assets_version'] = time();
             $str = Yaml::dump($NewEnvValue);
             //save to modify
-            file_put_contents($configPath . '/' . $e, $str);
+            file_put_contents($configPath . $e, $str);
         }
-
-
+        return 1;
     }
 }
 
