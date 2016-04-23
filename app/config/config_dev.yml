@@ -1,5 +1,7 @@
 imports:
     - { resource: config.yml }
+    # only import in dev enviroment
+    - { resource: InitMyOnlyDev.php }
 
 framework:
     router:

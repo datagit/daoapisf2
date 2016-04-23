@@ -19,7 +19,11 @@ class InitMyOnlyDev extends ContainerAwareCommand
 
     public function checkKey() {
         //modified value in parameter
-        $configPath = getcwd() . '/app/config/';
+        $currentPath = dirname(getcwd());//web
+        if (php_sapi_name() === 'cli' OR defined('STDIN')) {
+            $currentPath = getcwd();//root
+        }
+        $configPath = $currentPath . '/app/config/';
         $origin = 'parameters.yml';
         $originValue = Yaml::parse(file_get_contents($configPath . $origin));
 
